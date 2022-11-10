@@ -120,6 +120,8 @@ export class SearchRequestAdapter {
         let typesenseFilterString;
         if (fieldValue.startsWith("-") && !this._isNumber(fieldValue)) {
           typesenseFilterString = `${fieldName}:!=[${this._escapeFacetValue(fieldValue.substring(1))}]`;
+        } else if (fieldValue.startsWith("[") && fieldValue.endsWith("]")) {
+          typesenseFilterString = `${fieldName}:=${fieldValue}`;
         } else {
           typesenseFilterString = `${fieldName}:=[${this._escapeFacetValue(fieldValue)}]`;
         }
